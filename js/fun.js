@@ -11,6 +11,7 @@ function request(url) {
     if (request.status <= 200) {
       const data = JSON.parse(request.responseText).data[0];
       render(data);
+      console.log(data)
     } else {
       document.querySelector('.err').style.display = 'block';
     }
