@@ -1,0 +1,169 @@
+body {
+  background: hsl(218, 23%, 16%);
+  color: hsl(193, 38%, 86%);
+  font-family: Tahoma;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button {
+  background: hsl(217, 19%, 24%);
+  border: none;
+  color: hsl(193, 38%, 86%);
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+input:focus {
+  outline: none;
+}
+
+input {
+  color: hsl(193, 38%, 86%);
+  text-align: center;
+  border: 2px solid #3D76D0;
+  background: hsl(217, 19%, 24%);
+  padding: 10px;
+  margin: 5px;
+  border-radius: 1rem;
+  font-weight: bold;
+  font-size: 20px;
+  width: 200px;
+}
+
+input::placeholder {
+  color: #fff;
+}
+
+.form {
+  width: fit-content;
+  margin: 20px auto;
+}
+
+.temp {
+  background: hsl(217, 19%, 24%);
+  font-size: 60px;
+  font-weight: bold;
+  padding: 15px 25px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.temp::after {
+  content: "°";
+  font-size: 40px;
+  position: absolute;
+  top: 15px;
+}
+
+.t {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+
+}
+
+.t img {
+  position: absolute;
+  right: 0;
+  top: -35px;
+  height: 80px;
+  width: 80px;
+  z-index: 9999;
+  transform: translateX(80%);
+}
+
+.data {
+  padding: 5px;
+}
+
+.info {
+  background: hsl(217, 19%, 24%);
+  margin: 0 auto;
+  border-radius: 6px;
+  padding: 10px 5px;
+  border-top: 2px solid #3D76D0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+  max-width: 550px;
+  height: 350px;
+  overflow: scroll;
+  position: relative;
+}
+
+@media(min-width: 768px) {
+  .info {
+    gap: 10px;
+  }
+}
+
+.info div:not(.load) {
+  min-height: 100px;
+  background: hsl(218, 23%, 16%);
+  border-radius: 1rem;
+  text-align: center;
+  border: 1px solid hsl(193, 38%, 86%);
+}
+
+.info div p:first-child {
+  padding: 10px 0;
+  border-bottom: 5px solid #3D76D0;
+  height: 45px;
+  font-size: 14px;
+}
+
+.info div p:last-child {
+  font-size: 20px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  padding: 10px 5px;
+  line-height: 1.4;
+}
+
+.err,
+.load {
+  position: fixed;
+  border: 15px solid #3D76D0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(.8);
+
+}
+
+.load {
+  border-bottom-color: transparent;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  display: none;
+  animation: spin 1.5s infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(360deg)
+  }
+}
+
+.err {
+  width: 350px;
+  padding: 20px 5px;
+  display: none;
+}
+
+.err button {
+  width: 150px;
+  border-radius: 1rem;
+  border: 3px solid red;
+  margin: 15px auto;
+}
