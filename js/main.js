@@ -26,6 +26,9 @@ function withsearch() {
     if (search.value != '') {
       URL = `https://api.weatherbit.io/v2.0/current?&city=${search.value}&key=${key}`;
       request(URL);
+    }else{
+       document.querySelector('.err').style.display = 'none';
+ 
     }
   });
 }
