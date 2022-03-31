@@ -1,32 +1,38 @@
+const key = 'cad89863634f497aa11b3febc80cfbb2';
+// '4304b75fe0dc4797b3e29d1bed460757';
+
 function getel(el, val, ex = '') {
   return document.querySelector(el).textContent = val + ex;
+}
+
+function query(el) {
+  return document.querySelector(el);
 }
 
 // make request API
 function request(url) {
   const request = new XMLHttpRequest();
   request.open('GET', url);
-  document.querySelector('.load').style.display = 'block';
+  query('.load').style.display = 'block';
   request.addEventListener('load', function() {
-    if (request.status <= 200) {
+    if (request.status == 200) {
       const data = JSON.parse(request.responseText).data[0];
       render(data);
-      console.log(data)
-    } else {
-      document.querySelector('.err').style.display = 'block';
-    }
+      // console.log(data)
+    } else
+      query('.err').style.display = 'block';
   });
-  request.onloadend = () => {
-    document.querySelector('.load').style.display = 'none';
-  }
+  request.onloadend = () => query('.load').style.display = 'none';
   request.send();
-
 }
 
+// render data in page
 function render(data) {
-  let img = document.querySelector('.icon');
-  // render data in page
-  getel('.temp', data.temp);
+  // wether icon
+  query('.icon').style.display = 'block';
+  query('.icon').src = `https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png`;
+
+  getel('.temp', data.temp,' °');
   getel('.city', data.city_name);
   getel('.country', data.country_code);
   getel('.windspd', data.wind_spd, ' m/s');
@@ -41,15 +47,56 @@ function render(data) {
   getel('.solar_rad', data.solar_rad);
   getel('.aqi', data.aqi);
   getel('.uv', data.uv);
-  if (data.pod == 'n') {
-    getel('.pod', 'Night');
-  } else {
-    getel('.pod', 'Day');
-  }
-  img.src = `https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png`
 
+  if (data.pod == 'n') getel('.pod', 'Night');
+  else getel('.pod', 'Day');
+}
+
+function nextDays(url) {
+  let divs = document.querySelectorAll('.nextDays div');
+  let request = new XMLHttpRequest();
+  request.open('GET', url);
+  request.onload = () => {
+    const data = JSON.parse(request.responseText).data;
+    // console.log(data)
+    for (let i in data) {
+      divs[i].children[0].textContent = data[i].valid_date;
+      divs[i].children[1].textContent = data[i].temp + ' °';
+      divs[i].children[2].src = `https://www.weatherbit.io/static/img/icons/${data[i].weather.icon}.png`;
+    }
+  }
+  request.send();
+}
+
+function withsearch() {
+  let search = query('#city');
+  search.focus();
+  query('[type=submit]').addEventListener('click', () => {
+    if (search.value != '') {
+      nextDays(`https://api.weatherbit.io/v2.0/forecast/daily?city=${search.value}&key=${key}`);
+      request(`https://api.weatherbit.io/v2.0/current?&city=${search.value}&key=${key}`);
+    }
+    else query('.err').style.display = 'none';
+  });
+}
+
+function renderdivs(num) {
+  for (let x = 0; x < num; x++) {
+    let div = document.createElement('div');
+    let sp1 = document.createElement('span');
+    let sp2 = document.createElement('span');
+    let im = document.createElement('img');
+    div.appendChild(sp1);
+    div.appendChild(sp2);
+    div.appendChild(im);
+    query('.nextdays').appendChild(div);
+  }
 }
 export {
   getel,
-  request
+  query,
+  request,
+  nextDays,
+  withsearch,
+  renderdivs
 }
