@@ -12,5 +12,6 @@ navigator.geolocation.getCurrentPosition((p) => {
 // get country 
 withsearch();
 query('.err button').onclick = () => {
-  query('.err').style.display = 'none'
+  query('.err').style.display = 'none';
+  query('#city').focus();
 }
