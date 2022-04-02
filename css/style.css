@@ -55,12 +55,6 @@ input::placeholder {
   position: relative;
 }
 
-/* .temp::after {
-  content: "°";
-  font-size: 40px;
-  position: absolute;
-  top: 15px;
-} */
 
 .t {
   position: relative;
@@ -151,12 +145,14 @@ input::placeholder {
   transform: translate(-50%, -50%) scale(.03);
   animation: spin .5s infinite alternate;
 }
-.load p{
+
+.load p {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
+
 @keyframes spin {
   100% {
     transform: translate(-50%, -50%) scale(1.3)

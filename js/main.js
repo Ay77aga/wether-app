@@ -1,4 +1,4 @@
-import { getel, request, nextDays, withsearch, query, renderdivs } from './fun.js';
+import { getel, request, nextDays, withsearch, query, renderdivs, key } from './fun.js';
 
 renderdivs(5);
 
@@ -9,7 +9,8 @@ navigator.geolocation.getCurrentPosition((p) => {
 
 }, () => query('.err').style.display = 'block');
 
+// get country 
+withsearch();
 query('.err button').onclick = () => {
   query('.err').style.display = 'none'
 }
-withsearch();

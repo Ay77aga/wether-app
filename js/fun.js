@@ -1,5 +1,4 @@
-const key = 'cad89863634f497aa11b3febc80cfbb2';
-// '4304b75fe0dc4797b3e29d1bed460757';
+let key = 'cad89863634f497aa11b3febc80cfbb2';
 
 function getel(el, val, ex = '') {
   return document.querySelector(el).textContent = val + ex;
@@ -15,11 +14,16 @@ function request(url) {
   request.open('GET', url);
   query('.load').style.display = 'block';
   request.addEventListener('load', function() {
-    if (request.status == 200) {
+    if (request.status == 0) {
+      key = '4304b75fe0dc4797b3e29d1bed460757';
+
+    }
+    else if (request.status == 200) {
       const data = JSON.parse(request.responseText).data[0];
       render(data);
       // console.log(data)
-    } else
+    }
+    else
       query('.err').style.display = 'block';
   });
   request.onloadend = () => query('.load').style.display = 'none';
@@ -32,7 +36,7 @@ function render(data) {
   query('.icon').style.display = 'block';
   query('.icon').src = `https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png`;
 
-  getel('.temp', data.temp,' °');
+  getel('.temp', data.temp, '°');
   getel('.city', data.city_name);
   getel('.country', data.country_code);
   getel('.windspd', data.wind_spd, ' m/s');
@@ -58,8 +62,10 @@ function nextDays(url) {
   request.open('GET', url);
   request.onload = () => {
     const data = JSON.parse(request.responseText).data;
-    // console.log(data)
+    console.log(data)
+    let divs = document.querySelectorAll('.nextdays div')
     for (let i in data) {
+      if (i == 5) break;
       divs[i].children[0].textContent = data[i].valid_date;
       divs[i].children[1].textContent = data[i].temp + ' °';
       divs[i].children[2].src = `https://www.weatherbit.io/static/img/icons/${data[i].weather.icon}.png`;
@@ -98,5 +104,6 @@ export {
   request,
   nextDays,
   withsearch,
-  renderdivs
+  renderdivs,
+  key
 }
