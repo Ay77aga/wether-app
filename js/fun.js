@@ -67,7 +67,7 @@ function nextDays(url) {
     for (let i in data) {
       if (i == 5) break;
       divs[i].children[0].textContent = data[i].valid_date;
-      divs[i].children[1].textContent = data[i].temp + ' °';
+      divs[i].children[1].textContent = data[i].high_temp+' / '+ data[i].low_temp ;
       divs[i].children[2].src = `https://www.weatherbit.io/static/img/icons/${data[i].weather.icon}.png`;
     }
   }
