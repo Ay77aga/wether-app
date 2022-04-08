@@ -2,6 +2,7 @@ body {
   background: hsl(218, 23%, 16%);
   color: hsl(193, 38%, 86%);
   font-family: Tahoma;
+  font-display: optional;
 }
 
 * {
@@ -16,14 +17,19 @@ button {
   color: hsl(193, 38%, 86%);
   padding: 10px;
   font-weight: bold;
-  border-radius: 50%;
+  border-radius: 1rem;
   font-size: 20px;
+}
+button:focus{
+  outline: none;
 }
 
 input:focus {
   outline: none;
 }
-
+.lo{
+  border: 2px solid #fff;
+}
 input {
   color: hsl(193, 38%, 86%);
   text-align: center;
@@ -202,4 +208,5 @@ input::placeholder {
 
 .nextdays div img {
   width: 25px;
+  height: 30px;
 }

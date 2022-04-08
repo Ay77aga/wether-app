@@ -92,6 +92,7 @@ function renderdivs(num) {
     let sp1 = document.createElement('span');
     let sp2 = document.createElement('span');
     let im = document.createElement('img');
+    im.alt = 'icon';
     div.appendChild(sp1);
     div.appendChild(sp2);
     div.appendChild(im);
