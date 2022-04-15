@@ -11,14 +11,9 @@ function query(el) {
 // make request API
 function request(url) {
   const request = new XMLHttpRequest();
-  request.open('GET', url, true);
   query('.load').style.display = 'block';
   request.addEventListener('load', function() {
-    if (request.status == 0) {
-      key = '4304b75fe0dc4797b3e29d1bed460757';
-
-    }
-    else if (request.status == 200) {
+    if (request.status == 200) {
       const data = JSON.parse(request.responseText).data[0];
       render(data);
       // console.log(data)
@@ -27,6 +22,7 @@ function request(url) {
       query('.err').style.display = 'block';
   });
   request.onloadend = () => query('.load').style.display = 'none';
+  request.open('GET', url, true);
   request.send();
 }
 
@@ -61,15 +57,17 @@ function nextDays(url) {
   let request = new XMLHttpRequest();
   request.open('GET', url);
   request.onload = () => {
-    const data = JSON.parse(request.responseText).data;
-    query('.nextdays').textContent = '';
-    renderdivs(5);
-    let divs = document.querySelectorAll('.nextdays div')
-    for (let i = 1; i < data.length; i++) {
-      if (i == 6) break;
-      divs[i - 1].children[0].textContent = data[i].valid_date;
-      divs[i - 1].children[1].textContent = data[i].high_temp + ' / ' + data[i].low_temp;
-      divs[i - 1].children[2].src = `https://www.weatherbit.io/static/img/icons/${data[i].weather.icon}.png`;
+    if (request.status == 200) {
+      const data = JSON.parse(request.responseText).data;
+      query('.nextdays').textContent = '';
+      renderdivs(5);
+      let divs = document.querySelectorAll('.nextdays div')
+      for (let i = 1; i < data.length; i++) {
+        if (i == 6) break;
+        divs[i - 1].children[0].textContent = data[i].valid_date;
+        divs[i - 1].children[1].textContent = data[i].high_temp + ' / ' + data[i].low_temp;
+        divs[i - 1].children[2].src = `https://www.weatherbit.io/static/img/icons/${data[i].weather.icon}.png`;
+      }
     }
   }
   request.send();
