@@ -1,6 +1,5 @@
 import { getel, request, nextDays, withsearch, query, renderdivs, key } from './fun.js';
 
-renderdivs(5);
 
 query('.lo').onclick = function() {
   // get current location
