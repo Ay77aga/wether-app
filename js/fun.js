@@ -13,7 +13,8 @@ function request(url) {
   const request = new XMLHttpRequest();
   query('.load').style.display = 'block';
   request.addEventListener('load', function() {
-    if (request.status == 200) {
+
+    if (request.readyState === 4 && request.status === 200) {
       const data = JSON.parse(request.responseText).data[0];
       render(data);
       // console.log(data)
@@ -60,13 +61,14 @@ function nextDays(url) {
     if (request.status == 200) {
       const data = JSON.parse(request.responseText).data;
       query('.nextdays').textContent = '';
-      renderdivs(5);
-      let divs = document.querySelectorAll('.nextdays div')
-      for (let i = 1; i < data.length; i++) {
-        if (i == 6) break;
-        divs[i - 1].children[0].textContent = data[i].valid_date;
-        divs[i - 1].children[1].textContent = data[i].high_temp + ' / ' + data[i].low_temp;
-        divs[i - 1].children[2].src = `https://www.weatherbit.io/static/img/icons/${data[i].weather.icon}.png`;
+      for (let day of data) {
+           console.log(data)
+           renderdivs({
+             date:day.valid_date,
+             max_temp: day.max_temp,
+             min_temp: day.min_temp,
+             src: day.weather.icon
+           });
       }
     }
   }
@@ -85,18 +87,14 @@ function withsearch() {
   });
 }
 
-function renderdivs(num) {
-  for (let x = 0; x < num; x++) {
-    let div = document.createElement('div');
-    let sp1 = document.createElement('span');
-    let sp2 = document.createElement('span');
-    let im = document.createElement('img');
-    im.alt = 'icon';
-    div.appendChild(sp1);
-    div.appendChild(sp2);
-    div.appendChild(im);
-    query('.nextdays').appendChild(div);
-  }
+function renderdivs({ date,max_temp,min_temp, src }) {
+  let div = document.createElement('div');
+  div.innerHTML = `
+       <span>${date}</span>
+       <span>${max_temp} / ${min_temp}</span>
+       <img src=https://www.weatherbit.io/static/img/icons/${src}.png/>
+      `;
+  query('.nextdays').appendChild(div);
 }
 export {
   getel,
