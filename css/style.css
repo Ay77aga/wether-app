@@ -32,16 +32,13 @@ html {
 }
 
 
-
+.container{
+  margin: auto;
+}
 body {
   background: hsl(218, 23%, 16%);
   color: hsl(193, 38%, 86%);
   font-family: Tahoma;
-  height: 100vh;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
 }
 
 button {
@@ -141,14 +138,14 @@ input::placeholder {
   position: relative;
 }
 
-.container {
+.context {
   margin: 30px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.container > div{
+.context > div{
   border-radius: 1rem;
 }
 .info div:not(.load) {
@@ -260,9 +257,8 @@ input::placeholder {
     gap: 10px;
   }
 
-  .container {
+  .context {
     flex-direction: row;
-    justify-content: space-between;
 
   }
 .data{
